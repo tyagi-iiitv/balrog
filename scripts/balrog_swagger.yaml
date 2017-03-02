@@ -1,0 +1,350 @@
+swagger: '2.0'
+info:
+  description: This is an experiment on using swagger with Balrog Admin API View
+  version: 1.0.0
+  title: Mozilla Balrog Admin
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: atyagi@codemyway.in
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+tags:
+- name: rules
+  description: Rules that govern the Release and kind of request
+- name: releases
+  description: Releases to be broadcasted
+
+definitions:
+  Rule:
+    type: object
+    required:
+    - ruleId
+    - updateType
+    - dataVersion
+    properties:
+      backgroundRate:
+        type: integer
+        format: int64
+        maximum: 100
+        minimum: 0  
+      priority:
+        type: integer
+        format: int64
+      alias:
+        type: string
+        format: VarChar(50)
+      comment:
+        type: string
+        format: VarChar(500)
+      rule_id:
+        type: integer
+        format: int64
+      buildId:
+        type: string
+        format: VarChar(20)
+      buildTarget:
+        type: string
+        format: VarChar(75)
+      channel:
+        type: string
+        format: VarChar(75)
+      distribution:
+        type: string
+        format: VarChar(100)
+      distVersion:
+        type: string
+        format: VarChar(100)
+      headerArchitecture:
+        type: string
+        format: VarChar(10)
+      locale:
+        type: string
+        format: VarChar(200)
+      osVersion:
+        type: string
+        format: VarChar(1000)
+      product:
+        type: string
+        format: VarChar(15)
+      systemCapabilities:
+        type: string
+        format: VarChar(1000)
+      dataVersion:
+        type: int
+        format: int64
+      whitelist:
+        type: string
+        format: VarChar(100)
+      fallbackMapping:
+        type: string
+        format: VarChar(100)
+      mapping:
+        type: string
+        format: VarChar(100)
+      updateType:
+        type: string
+        format: VarChar(15)
+    xml:
+      name: Rule
+  RulesHistory:
+    type: object
+    required:
+    - changeId
+    - changedBy
+    - ruleId
+    - timestamp
+    properties:
+      changeId:
+        type: integer
+        format: int64
+      changedBy:
+        type: string
+        format: VarChar(100)
+      backgroundRate:
+        type: integer
+        format: int64
+        maximum: 100
+        minimum: 0  
+      priority:
+        type: integer
+        format: int64
+      alias:
+        type: string
+        format: VarChar(50)
+      comment:
+        type: string
+        format: VarChar(500)
+      rule_id:
+        type: integer
+        format: int64
+      buildId:
+        type: string
+        format: VarChar(20)
+      buildTarget:
+        type: string
+        format: VarChar(75)
+      channel:
+        type: string
+        format: VarChar(75)
+      distribution:
+        type: string
+        format: VarChar(100)
+      distVersion:
+        type: string
+        format: VarChar(100)
+      headerArchitecture:
+        type: string
+        format: VarChar(10)
+      locale:
+        type: string
+        format: VarChar(200)
+      osVersion:
+        type: string
+        format: VarChar(1000)
+      product:
+        type: string
+        format: VarChar(15)
+      systemCapabilities:
+        type: string
+        format: VarChar(1000)
+      dataVersion:
+        type: int
+        format: int64
+      whitelist:
+        type: string
+        format: VarChar(100)
+      fallbackMapping:
+        type: string
+        format: VarChar(100)
+      mapping:
+        type: string
+        format: VarChar(100)
+      updateType:
+        type: string
+        format: VarChar(15)
+      timestamp:
+        type: integer
+        format: int64
+    xml:
+      name: RulesHistory
+  RulesScheduledChanges:
+    type: object
+    required:
+    - scId
+    - scheduledBy
+    - dataVersion
+    - changeType
+    properties:
+      scId:
+        type: integer
+        format: int64
+      scheduledBy:
+        type: string
+        format: VarChar(100)
+      complete:
+        type: boolean
+      baseBackgroundRate:
+        type: integer
+        format: int64
+        maximum: 100
+        minimum: 0  
+      basePriority:
+        type: integer
+        format: int64
+      baseAlias:
+        type: string
+        format: VarChar(50)
+      baseComment:
+        type: string
+        format: VarChar(500)
+      baseRule_id:
+        type: integer
+        format: int64
+      baseBuildId:
+        type: string
+        format: VarChar(20)
+      baseBuildTarget:
+        type: string
+        format: VarChar(75)
+      baseChannel:
+        type: string
+        format: VarChar(75)
+      baseDistribution:
+        type: string
+        format: VarChar(100)
+      baseDistVersion:
+        type: string
+        format: VarChar(100)
+      baseHeaderArchitecture:
+        type: string
+        format: VarChar(10)
+      baseLocale:
+        type: string
+        format: VarChar(200)
+      baseOsVersion:
+        type: string
+        format: VarChar(1000)
+      baseProduct:
+        type: string
+        format: VarChar(15)
+      baseSystemCapabilities:
+        type: string
+        format: VarChar(1000)
+      baseDataVersion:
+        type: int
+        format: int64
+      baseWhitelist:
+        type: string
+        format: VarChar(100)
+      baseFallbackMapping:
+        type: string
+        format: VarChar(100)
+      baseMapping:
+        type: string
+        format: VarChar(100)
+      baseUpdateType:
+        type: string
+        format: VarChar(15)
+      baseTimestamp:
+        type: integer
+        format: int64
+    xml:
+      name: RulesScheduledChanges
+  RulesScheduledChangesConditions:
+    required:
+    - scId
+    - dataVersion
+    properties:
+      scId:
+        type: integer
+        format: int64
+      telemetryProduct:
+        type: string
+        format: VarChar(15)
+      telemetryChannel:
+        type: string
+        format: VarChar(75)
+      telemetryUptake:
+        type: integer
+        format: int64
+      dataVersion:
+        type: integer
+        format: int64
+      when:
+        type: integer
+        format: int64
+    xml:
+      name: RulesScheduledChangesConditions
+  RulesScheduledChangesConditionsHistory:
+    type: object
+    required:
+    - changeId
+    - changedBy
+    - scId
+    - timestamp
+    properties:
+      changeId:
+        type: integer
+        format: int64
+      changedBy:
+        type: string
+        format: VarChar(100)
+      timestamp:
+        type: integer
+        format: int64
+      scId:
+        type: integer
+        format: int64
+      telemetryProduct:
+        type: string
+        format: VarChar(15)
+      telemetryChannel:
+        type: string
+        format: VarChar(75)
+      telemetryUptake:
+        type: integer
+        format: int64
+      dataVersion:
+        type: integer
+        format: int64
+      when:
+        type: integer
+        format: int64
+    xml:
+      name: RulesScheduledChangesConditionsHistory
+                
+  Release:
+    name:
+      type: string
+    changed_by:
+      type: string
+    transaction:
+      type: string
+    product:
+      type: string
+    releaseData:
+      type: string
+  xml:
+    name: Release
+  Permissions:
+    username:
+      type: string
+    permission:
+      type: string
+  xml:
+    name: Permissions
+  UserRoles:
+    
+      
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+# basePath: /api/
+schemes:
+ - https
+ - http
+# Added by API Auto Mocking Plugin
+basePath: /tyagi-iiitv/test-balrog/1.0.0
