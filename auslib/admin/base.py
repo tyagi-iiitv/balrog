@@ -1,5 +1,6 @@
 import urllib
 
+import connexion
 from flask import Flask, request
 from flask_compress import Compress
 
@@ -8,7 +9,8 @@ from raven.contrib.flask import Sentry
 import logging
 log = logging.getLogger(__name__)
 
-app = Flask(__name__)
+app = connexion.App(__name__)
+app.add_api('swagger-spec.yaml')
 sentry = Sentry()
 
 from auslib.admin.views.csrf import CSRFView
@@ -45,7 +47,7 @@ from auslib.admin.views.rules import RulesAPIView, \
 from auslib.dockerflow import create_dockerflow_endpoints
 
 
-create_dockerflow_endpoints(app)
+create_dockerflow_endpoints(app.app)
 
 
 # When running under uwsgi, paths will not get decoded before hitting the app.
@@ -60,10 +62,10 @@ class UnquotingMiddleware(object):
         return self.app(environ, start_response)
 
 
-app.wsgi_app = UnquotingMiddleware(app.wsgi_app)
+app.app.wsgi_app = UnquotingMiddleware(app.app.wsgi_app)
 
 
-@app.errorhandler(500)
+@app.app.errorhandler(500)
 def ise(error):
     log.error("Caught ISE 500 error.")
     log.debug("Request path is: %s", request.path)
@@ -72,7 +74,7 @@ def ise(error):
     return error
 
 
-@app.after_request
+@app.app.after_request
 def add_security_headers(response):
     response.headers['X-Frame-Options'] = 'DENY'
     response.headers['X-Content-Type-Options'] = 'nosniff'
@@ -81,7 +83,7 @@ def add_security_headers(response):
     return response
 
 
-Compress(app)
+Compress(app.app)
 
 
 # Endpoints required for the Balrog 2.0 UI.
